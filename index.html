@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-US">
+<head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon" type="image/png" href="./favicon.png">
+    <title>Ubiq - Add to MetaMask</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             text-decoration: none;
             list-style-type: none;
-            
         }
     
         h2,
@@ -25,7 +26,6 @@
             color: blacks;
             font-weight: 700;
             border-radius: 3px;
-    
         }
     
         .button.black {
@@ -58,116 +58,40 @@
     </style>
 </head>
 
-
-
-
 <body>
-    
-
     <script>
-        function connectToBSC() {
+        function connectToUBQ() {
             if (typeof window.ethereum == 'undefined') {
                 alert('MetaMask is not installed!');
             } else {
-                if (window.ethereum.chainId == "0x38") {
-                    alert("You are already connected to the network with ID 0x38")
+                if (window.ethereum.chainId == "0x8") {
+                    alert("You are already connected to the Ubiq network")
                 }
 
                 const chain = {
-                    chainId: "0x38",
-                    chainName: "Binance Smart Chain Mainnet",
+                    chainId: "0x8",
+                    chainName: "Ubiq",
                     nativeCurrency: {
-                        name: "Binance Chain Native Token",
-                        symbol: "BNB",
+                        name: "Ubiq Ether",
+                        symbol: "UBQ",
                         decimals: 18,
                     },
-                    rpcUrls: ["https://bsc-dataseed1.binance.org", "https://bsc-dataseed2.binance.org", "https://bsc-dataseed3.binance.org", "https://bsc-dataseed4.binance.org", "https://bsc-dataseed1.defibit.io", "https://bsc-dataseed2.defibit.io", "https://bsc-dataseed3.defibit.io", "https://bsc-dataseed4.defibit.io", "https://bsc-dataseed1.ninicoin.io", "https://bsc-dataseed2.ninicoin.io", "https://bsc-dataseed3.ninicoin.io", "https://bsc-dataseed4.ninicoin.io", "wss://bsc-ws-node.nariox.org"],
-                    blockExplorerUrls: ["https://www.bscscan.com/"],
-                    iconUrls: [
-                        "https://bin.bnbstatic.com/image/admin_mgs_image_upload/20201110/550eda20-1b9a-4bc7-9a65-e4a329e8bb57.png"
-                    ]
+                    rpcUrls: ["https://rpc.octano.dev/"],
+                    blockExplorerUrls: ["https://ubiqscan.io/"]
                 };
                 window.ethereum.request({
                     method: "wallet_addEthereumChain",
                     params: [chain],
                 }).catch((error) => {
                     console.log(error);
-                    alert("An error has occurred. Please make sure the metamask is ready to go. See error in log");
+                    alert("An error has occurred. Please make sure MetaMask is ready to go. See error in log");
                 });
             }
         }
     </script>
 
-<style>
-    #forkongithub a {
-        background: #000;
-        color: #fff;
-        text-decoration: none;
-        font-family: arial, sans-serif;
-        text-align: center;
-        font-weight: bold;
-        padding: 5px 40px;
-        font-size: 1rem;
-        line-height: 2rem;
-        position: relative;
-        transition: 0.5s;
-    }
-
-    #forkongithub a:hover {
-        background: #c11;
-        color: #fff;
-    }
-
-    #forkongithub a::before,
-    #forkongithub a::after {
-        content: "";
-        width: 100%;
-        display: block;
-        position: absolute;
-        top: 1px;
-        left: 0;
-        height: 1px;
-        background: #fff;
-    }
-
-    #forkongithub a::after {
-        bottom: 1px;
-        top: auto;
-    }
-
-    @media screen and (min-width:800px) {
-        #forkongithub {
-            position: fixed;
-            display: block;
-            top: 0;
-            right: 0;
-            width: 200px;
-            overflow: hidden;
-            height: 200px;
-            z-index: 9999;
-        }
-
-        #forkongithub a {
-            width: 200px;
-            position: absolute;
-            top: 60px;
-            right: -60px;
-            transform: rotate(45deg);
-            -webkit-transform: rotate(45deg);
-            -ms-transform: rotate(45deg);
-            -moz-transform: rotate(45deg);
-            -o-transform: rotate(45deg);
-            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8);
-        }
-    }
-</style><span id="forkongithub"><a href="https://github.com/alexey-zhdanov/metamask-to-bsc">Fork me on
-        GitHub</a></span>
-
-
-    <div><img src="./bnb.png"></div>
-    <h2>Connect to BSC with Metamask</h2>
-    <div><button class="button black" onclick="connectToBSC()">connect!</button></div>
+    <h2>Add Ubiq to MetaMask in one click (via <a href="https://eips.ethereum.org/EIPS/eip-3085">EIP-3085</a>)</h2>
+    <div><button class="button black" onclick="connectToUBQ()">Add!</button></div>
 
 </body>
-
 </html>

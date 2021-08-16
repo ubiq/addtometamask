@@ -1,4 +1,4 @@
-## Add Ubiq to Metamask in one click
+## Add Ubiq to MetaMask in one click
 
 Based on: https://github.com/alexey-kaufmann/metamask-to-bsc
 
