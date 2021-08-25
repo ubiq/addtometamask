@@ -88,11 +88,41 @@
                 });
             }
         }
+
+        const wubq64x64Base64Image = 'data:image/png;base64,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';
+        function addPolygonWUBQToMetamask() {
+            if (typeof window.ethereum == 'undefined') {
+                alert('MetaMask is not installed!');
+            } else {
+                if (window.ethereum.chainId != "0x89") {
+                    alert("Please connect to the Polygon network to add this asset")
+                }
+
+                const polygonWUBQ = {
+                    type: "ERC20",
+                    options: {
+                        address: "0xb1c5c9b97b35592777091cd34ffff141ae866abd",
+                        symbol: "WUBQ",
+                        decimals: 18,
+                        image: wubq64x64Base64Image
+                    }
+                };
+                window.ethereum.request({
+                    method: "wallet_watchAsset",
+                    params: polygonWUBQ
+                }).catch((error) => {
+                    console.log(error);
+                    alert("An error has occurred. Please make sure MetaMask is ready to go. See error in log");
+                });
+            }
+        }
     </script>
 
     <h2>Add Ubiq to MetaMask in one click (via <a href="https://eips.ethereum.org/EIPS/eip-3085">EIP-3085</a>)</h2>
     <div><button class="button black" onclick="connectToUBQ()">Add!</button></div>
 <div><b>NOTE:</b> This is a one-click add to MetaMask similar to <a href="https://chainlist.org/">Chainlist.org</a> but without having to Search for "Ubiq". It does have a warning message on MetaMask when you Add but I think it's because the database that Chainlist uses says "Ubiq Network Mainnet" as the network and this page shortens it to "Ubiq". If that bothers you, just use <a href="https://chainlist.org/">Chainlist.org</a> with no warning.</div>
+    <h2>Add Polygon WUBQ to MetaMask in one click (via <a href="https://eips.ethereum.org/EIPS/eip-747">EIP-747</a>)</h2>
+    <div><button class="button black" onclick="addPolygonWUBQToMetamask()">Add!</button></div>
 
 </body>
 </html>
