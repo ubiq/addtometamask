@@ -63,11 +63,9 @@
         function connectToUBQ() {
             if (typeof window.ethereum == 'undefined') {
                 alert('MetaMask is not installed!');
+            } else if (window.ethereum.chainId == "0x8") {
+                alert("You are already connected to the Ubiq network")
             } else {
-                if (window.ethereum.chainId == "0x8") {
-                    alert("You are already connected to the Ubiq network")
-                }
-
                 const chain = {
                     chainId: "0x8",
                     chainName: "Ubiq",
@@ -93,11 +91,9 @@
         function addPolygonWUBQToMetamask() {
             if (typeof window.ethereum == 'undefined') {
                 alert('MetaMask is not installed!');
+            } else if (window.ethereum.chainId != "0x89") {
+                alert("Please connect to the Polygon network to add this asset")
             } else {
-                if (window.ethereum.chainId != "0x89") {
-                    alert("Please connect to the Polygon network to add this asset")
-                }
-
                 const polygonWUBQ = {
                     type: "ERC20",
                     options: {
