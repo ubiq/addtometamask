@@ -1,185 +1,193 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en-US">
-<head profile="http://www.w3.org/2005/10/profile">
-    <link rel="icon" type="image/png" href="./favicon.png">
-    <title>Ubiq - Add to MetaMask</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            text-decoration: none;
-            list-style-type: none;
-        }
-    
-        h2,
-        div {
-            text-align: center;
-            margin: 1em 0 1em 0;
-        }
-    
-        button {
-            width: 120px;
-            height: 40px;
-            background-color: -internal-light-dark(rgb(239, 239, 239), rgb(74, 74, 74));
-            outline: none;
-            border: none;
-            color: blacks;
-            font-weight: 700;
-            border-radius: 3px;
-        }
-    
-        .button.black {
-            background: #303030;
-            background: -webkit-gradient(linear, 0 0, 0 bottom, from(#656565), to(#444));
-            background: -moz-linear-gradient(#656565, #444);
-            background: linear-gradient(#656565, #444);
-            border: solid 1px #535353;
-            border-bottom: solid 3px #414141;
-            box-shadow: inset 0 0 0 1px #939393;
-            color: #fff;
-            text-shadow: 0 1px 0 #2f2f2f; }
-    
-        .button.black:hover {
-            background: #4c4c4c;
-            background: -webkit-gradient(linear, 0 0, 0 bottom, from(#4c4c4c), to(#565656));
-            background: -moz-linear-gradient(#4c4c4c, #565656);
-            background: linear-gradient(#4c4c4c, #565656);
-            border: solid 1px #464646;
-            border-bottom: solid 3px #414141;
-            box-shadow: inset 0 0 0 1px #818181; }
-    
-        .button.black:active {
-            background: #474747;
-            background: -webkit-gradient(linear, 0 0, 0 bottom, from(#474747), to(#444));
-            background: -moz-linear-gradient(#474747, #444);
-            background: linear-gradient(#474747, #444);
-            border: solid 1px #2f2f2f;
-            box-shadow: inset 0 10px 15px 0 #3e3e3e; }
-    </style>
-</head>
-
-<body>
-    <script>
-        function connectToUBQ() {
-            if (typeof window.ethereum == 'undefined') {
-                alert('MetaMask is not installed!');
-            } else if (window.ethereum.chainId == "0x8") {
-                alert("You are already connected to the Ubiq network")
-            } else {
-                const chain = {
-                    chainId: "0x8",
-                    chainName: "Ubiq",
-                    nativeCurrency: {
-                        name: "Ubiq Ether",
-                        symbol: "UBQ",
-                        decimals: 18,
-                    },
-                    rpcUrls: ["https://rpc.octano.dev/"],
-                    blockExplorerUrls: ["https://ubiqscan.io/"]
-                };
-                window.ethereum.request({
-                    method: "wallet_addEthereumChain",
-                    params: [chain],
-                }).catch((error) => {
-                    console.log(error);
-                    alert("An error has occurred. Please make sure MetaMask is ready to go. See error in log");
-                });
+    <head profile="http://www.w3.org/2005/10/profile">
+        <link rel="icon" type="image/png" href="./favicon.png">
+        <title>Ubiq - Add to MetaMask</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                text-decoration: none;
+                list-style-type: none;
             }
-        }
-
-        const wubq64x64Base64Image = 'data:image/png;base64,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';
-        function addPolygonWUBQToMetamask() {
-            if (typeof window.ethereum == 'undefined') {
-                alert('MetaMask is not installed!');
-            } else if (window.ethereum.chainId != "0x89") {
-                alert("Please connect to the Polygon network to add this asset")
-            } else {
-                const polygonWUBQ = {
-                    type: "ERC20",
-                    options: {
-                        address: "0xb1c5c9b97b35592777091cd34ffff141ae866abd",
-                        symbol: "WUBQ",
-                        decimals: 18,
-                        image: wubq64x64Base64Image
-                    }
-                };
-                window.ethereum.request({
-                    method: "wallet_watchAsset",
-                    params: polygonWUBQ
-                }).catch((error) => {
-                    console.log(error);
-                    alert("An error has occurred. Please make sure MetaMask is ready to go. See error in log");
-                });
+            html {
+                color:#FFF;
+                background-color:#2C2F36;
+                min-height: 100vh;
+                background-position: 0px -30vh;
+                background-repeat: no-repeat;
+                background-image: radial-gradient(50% 50% at 50% 50%, #00EA900F, #21242900);
             }
-        }
-
-        function addAvalancheWUBQToMetamask() {
-            if (typeof window.ethereum == 'undefined') {
-                alert('MetaMask is not installed!');
-            } else if (window.ethereum.chainId != "0xa86a") {
-                alert("Please connect to the Avalanche network to add this asset")
-            } else {
-                const avalancheWUBQ = {
-                    type: "ERC20",
-                    options: {
-                        address: "0x954C3140FEF98D725eC988D1d75E686c595D62FD",
-                        symbol: "WUBQ",
-                        decimals: 18,
-                        image: wubq64x64Base64Image
-                    }
-                };
-                window.ethereum.request({
-                    method: "wallet_watchAsset",
-                    params: avalancheWUBQ
-                }).catch((error) => {
-                    console.log(error);
-                    alert("An error has occurred. Please make sure MetaMask is ready to go. See error in log");
-                });
+            h2{ margin: 1em 0 1em 0;}
+            button {
+                width: 10rem;
+                height: 3rem;
+                color:#FFF;
+                border-radius: 16px;
+                border:none;
             }
-        }
-
-        const grans128x128Base64Image = 'data:image/png;base64,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';
-        function addUbiqGRANSToMetamask() {
-            if (typeof window.ethereum == 'undefined') {
-                alert('MetaMask is not installed!');
-            } else if (window.ethereum.chainId != "0x8") {
-                alert("Please connect to the Ubiq network to add this asset")
-            } else {
-                const ubiqGRANS = {
-                    type: "ERC20",
-                    options: {
-                        address: "0x0826180A4c981d5095Cb5c48BB2A098A44cf6f73",
-                        symbol: "GRANS",
-                        decimals: 18,
-                        image: grans128x128Base64Image
-                    }
-                };
-                window.ethereum.request({
-                    method: "wallet_watchAsset",
-                    params: ubiqGRANS
-                }).catch((error) => {
-                    console.log(error);
-                    alert("An error has occurred. Please make sure MetaMask is ready to go. See error in log");
-                });
+            .connect{
+                background-color:#00EA90;
+                font-size: 18px;
+                font-weight: 800;
+                transition: 150ms;
             }
-        }
-    </script>
+            .connect:hover{
+                transition: 150ms;
+                background-color:#0AC268;
+            }
+            a {
+                color:#00EA90;
+                transition: 150ms;
+            }
+            a:hover{
+                color:#0AC268;
+                transition: 150ms;
+            }
+            .base{
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                flex-direction: column;
+                flex-wrap: nowrap;
+            }
+            .bigframe {
+                text-align: center;
+                max-width: 680px;
+                width: 100%;
+                background:#212429CC;
+                border-radius: 30px;
+                box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
+                padding: 1rem;
+                margin: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            function connectToUBQ() {
+                if (typeof window.ethereum == 'undefined') {
+                    alert('MetaMask is not installed!');
+                } else if (window.ethereum.chainId == "0x8") {
+                    alert("You are already connected to the Ubiq network")
+                } else {
+                    const chain = {
+                        chainId: "0x8",
+                        chainName: "Ubiq",
+                        nativeCurrency: {
+                            name: "Ubiq Ether",
+                            symbol: "UBQ",
+                            decimals: 18,
+                        },
+                        rpcUrls: ["https://rpc.octano.dev/"],
+                        blockExplorerUrls: ["https://ubiqscan.io/"]
+                    };
+                    window.ethereum.request({
+                        method: "wallet_addEthereumChain",
+                        params: [chain],
+                    }).catch((error) => {
+                        console.log(error);
+                        alert("An error has occurred. Please make sure MetaMask is ready to go. See error in log");
+                    });
+                }
+            }
 
-    <h2>Add Ubiq to MetaMask in one click (via <a href="https://eips.ethereum.org/EIPS/eip-3085">EIP-3085</a>)</h2>
-    <div><button class="button black" onclick="connectToUBQ()">Add!</button></div>
-    <h2>Add 10grans (GRANS) to MetaMask in one click (via <a href="https://eips.ethereum.org/EIPS/eip-747">EIP-747</a>)</h2>
-    <div><button class="button black" onclick="addUbiqGRANSToMetamask()">Add!</button></div>
+            const wubq64x64Base64Image = 'data:image/png;base64,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';
+            function addPolygonWUBQToMetamask() {
+                if (typeof window.ethereum == 'undefined') {
+                    alert('MetaMask is not installed!');
+                } else if (window.ethereum.chainId != "0x89") {
+                    alert("Please connect to the Polygon network to add this asset")
+                } else {
+                    const polygonWUBQ = {
+                        type: "ERC20",
+                        options: {
+                            address: "0xb1c5c9b97b35592777091cd34ffff141ae866abd",
+                            symbol: "WUBQ",
+                            decimals: 18,
+                            image: wubq64x64Base64Image
+                        }
+                    };
+                    window.ethereum.request({
+                        method: "wallet_watchAsset",
+                        params: polygonWUBQ
+                    }).catch((error) => {
+                        console.log(error);
+                        alert("An error has occurred. Please make sure MetaMask is ready to go. See error in log");
+                    });
+                }
+            }
 
-    <hr>
-    <h1>Polygon</h1>
-    <h2>Add Polygon WUBQ to MetaMask in one click (via <a href="https://eips.ethereum.org/EIPS/eip-747">EIP-747</a>)</h2>
-    <div><button class="button black" onclick="addPolygonWUBQToMetamask()">Add!</button></div>
-    <h2><a href="https://info.quickswap.exchange/pair/0x8dccc1251f93fc4eb71dc7a686b58d3e718a5949">Polygon WUBQ on Quickswap</a></h2>
+            function addAvalancheWUBQToMetamask() {
+                if (typeof window.ethereum == 'undefined') {
+                    alert('MetaMask is not installed!');
+                } else if (window.ethereum.chainId != "0xa86a") {
+                    alert("Please connect to the Avalanche network to add this asset")
+                } else {
+                    const avalancheWUBQ = {
+                        type: "ERC20",
+                        options: {
+                            address: "0x954C3140FEF98D725eC988D1d75E686c595D62FD",
+                            symbol: "WUBQ",
+                            decimals: 18,
+                            image: wubq64x64Base64Image
+                        }
+                    };
+                    window.ethereum.request({
+                        method: "wallet_watchAsset",
+                        params: avalancheWUBQ
+                    }).catch((error) => {
+                        console.log(error);
+                        alert("An error has occurred. Please make sure MetaMask is ready to go. See error in log");
+                    });
+                }
+            }
 
-    <hr>
-    <h1>Avalanche</h1>
-    <h2>Add Avalanche WUBQ to MetaMask in one click (via <a href="https://eips.ethereum.org/EIPS/eip-747">EIP-747</a>)</h2>
-    <div><button class="button black" onclick="addAvalancheWUBQToMetamask()">Add!</button></div>
-
-</body>
+            const grans128x128Base64Image = 'data:image/png;base64,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';
+            function addUbiqGRANSToMetamask() {
+                if (typeof window.ethereum == 'undefined') {
+                    alert('MetaMask is not installed!');
+                } else if (window.ethereum.chainId != "0x8") {
+                    alert("Please connect to the Ubiq network to add this asset")
+                } else {
+                    const ubiqGRANS = {
+                        type: "ERC20",
+                        options: {
+                            address: "0x0826180A4c981d5095Cb5c48BB2A098A44cf6f73",
+                            symbol: "GRANS",
+                            decimals: 18,
+                            image: grans128x128Base64Image
+                        }
+                    };
+                    window.ethereum.request({
+                        method: "wallet_watchAsset",
+                        params: ubiqGRANS
+                    }).catch((error) => {
+                        console.log(error);
+                        alert("An error has occurred. Please make sure MetaMask is ready to go. See error in log");
+                    });
+                }
+            }
+        </script>
+        <div class="base">
+            <div class="bigframe">
+            <h1>Ubiq</h1>
+                <h2>Add Ubiq to MetaMask in one click (via <a href="https://eips.ethereum.org/EIPS/eip-3085">EIP-3085</a>)</h2>
+                <div><button class="connect" onclick="connectToUBQ()">Add!</button></div>
+                <h2>Add 10grans (GRANS) to MetaMask in one click (via <a href="https://eips.ethereum.org/EIPS/eip-747">EIP-747</a>)</h2>
+                <div><button class="connect" onclick="addUbiqGRANSToMetamask()">Add!</button></div>
+            </div>
+            <div class="bigframe">
+                <h1>Polygon</h1>
+                <h2>Add Polygon WUBQ to MetaMask in one click (via <a href="https://eips.ethereum.org/EIPS/eip-747">EIP-747</a>)</h2>
+                <div><button class="connect" onclick="addPolygonWUBQToMetamask()">Add!</button></div>
+                <h2><a href="https://info.quickswap.exchange/pair/0x8dccc1251f93fc4eb71dc7a686b58d3e718a5949">Polygon WUBQ on Quickswap</a></h2>
+            </div>
+            <div class="bigframe">
+                <h1>Avalanche</h1>
+                <h2>Add Avalanche WUBQ to MetaMask in one click (via <a href="https://eips.ethereum.org/EIPS/eip-747">EIP-747</a>)</h2>
+                <div><button class="connect" onclick="addAvalancheWUBQToMetamask()">Add!</button></div>
+            </div>
+        </div>
+    </body>
 </html>
